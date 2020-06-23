@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using ProjectMobileAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,8 @@ namespace ProjectMobileAPI.Repositories
         public TblAccount CheckLogin(TblAccount account)
         {
             TblAccount acc = _context.TblAccount
-                .Where(record => record.Username == account.Username && record.Password == account.Password)
+                .Where(record => record.Username == account.Username && record.Password == account.Password && record.Status == true)
+                .Include(actor => actor.TblActor)
                 .FirstOrDefault();
             return acc;
         }

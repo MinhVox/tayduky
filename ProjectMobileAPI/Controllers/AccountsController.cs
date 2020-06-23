@@ -39,7 +39,7 @@ namespace ProjectMobileAPI.Controllers
             {
                 return Ok(result);
             }
-            return BadRequest();
+            return NotFound();
         }
 
         // GET: api/Accounts/5
