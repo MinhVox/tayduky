@@ -17,6 +17,5 @@ namespace ProjectMobileAPI.Repositories
         {
             this._context = context;
         }
-
     }
 }

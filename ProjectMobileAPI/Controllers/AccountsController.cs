@@ -25,9 +25,21 @@ namespace ProjectMobileAPI.Controllers
 
         // GET: api/Accounts
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TblAccount>>> GetAccount()
+        public async Task<ActionResult> GetAccountWithRoleActor()
         {
-            return await _context.TblAccount.ToListAsync();
+            var result = await _context.TblAccount
+                .Where(i => i.Role == 0)
+                .Select(a => new { 
+                    role = a.Role.ToString(),
+                    username = a.Username,
+                    status = a.Status,
+                    actor = a.TblActor
+                })
+                .ToListAsync();
+            if (result != null){
+                return Ok(result);
+            }
+            return Ok(null);
         }
 
         //loginAPI
