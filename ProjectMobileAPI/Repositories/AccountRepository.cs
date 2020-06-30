@@ -28,5 +28,17 @@ namespace ProjectMobileAPI.Repositories
                 .FirstOrDefault();
             return acc;
         }
+
+        public bool changeStatus(TblAccount account)
+        {
+            var acc = _context.TblAccount.Where(record => record.Username == account.Username).FirstOrDefault();
+            if(acc == null)
+            {
+                return false;
+            }
+            acc.Status = account.Status;
+            _context.SaveChanges();
+            return true;
+        }
     }
 }

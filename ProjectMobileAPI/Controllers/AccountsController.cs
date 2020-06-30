@@ -54,6 +54,17 @@ namespace ProjectMobileAPI.Controllers
             return NotFound();
         }
 
+        [HttpPut("/api/Accounts/status")]
+        public IActionResult ChangeStatus(TblAccount account)
+        {
+            var result = _accRepo.changeStatus(account);
+            if (result == true)
+            {
+                return Ok(result);
+            }
+            return NotFound();
+        }
+
         // GET: api/Accounts/5
         [HttpGet("{id}")]
         public async Task<ActionResult<TblAccount>> GetAccount(string id)
