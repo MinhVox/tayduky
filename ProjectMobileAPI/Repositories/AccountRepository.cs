@@ -40,5 +40,28 @@ namespace ProjectMobileAPI.Repositories
             _context.SaveChanges();
             return true;
         }
+
+        public bool AddNewActor(TblActor account)
+        {
+            var acc = _context.TblAccount.Add(new TblAccount()
+            {
+                Username = account.Username,
+                Password = "1",
+                Role = 1,
+                Status = true,
+            });
+
+            var actor = _context.TblActor.Add(new TblActor()
+            {
+                Username = account.Username,
+                Name = account.Name,
+                Email = account.Email,
+                Phone = account.Phone,
+                Description = account.Description,
+                Img = account.Img
+            });
+            _context.SaveChanges();
+            return true;
+        }
     }
 }

@@ -65,6 +65,31 @@ namespace ProjectMobileAPI.Controllers
             return NotFound();
         }
 
+        [HttpPost("/api/Accounts")]
+        public IActionResult AddNewAccount(TblActor account)
+        {
+            try
+            {
+                var result = _accRepo.AddNewActor(account);
+                if (result == true)
+                {
+                    return Ok(result);
+                }
+            }
+            catch(DbUpdateException)
+            {
+                if (AccountExists(account.Username))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return BadRequest();
+        }
+
         // GET: api/Accounts/5
         [HttpGet("{id}")]
         public async Task<ActionResult<TblAccount>> GetAccount(string id)
@@ -107,30 +132,6 @@ namespace ProjectMobileAPI.Controllers
             }
 
             return NoContent();
-        }
-
-        // POST: api/Accounts
-        [HttpPost]
-        public async Task<ActionResult<TblAccount>> PostAccount(TblAccount account)
-        {
-            _context.TblAccount.Add(account);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (AccountExists(account.Username))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtAction("GetAccount", new { id = account.Username }, account);
         }
 
         // DELETE: api/Accounts/5
