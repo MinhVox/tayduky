@@ -62,11 +62,15 @@ namespace ProjectMobileAPI.Models
                     .HasMaxLength(50)
                     .ValueGeneratedNever();
 
+                entity.Property(e => e.Createtime).HasColumnType("datetime");
+
                 entity.Property(e => e.Description).HasMaxLength(500);
 
                 entity.Property(e => e.Email).HasMaxLength(50);
 
                 entity.Property(e => e.Img).HasMaxLength(100);
+
+                entity.Property(e => e.Lastmodified).HasColumnType("datetime");
 
                 entity.Property(e => e.Name).HasMaxLength(50);
 
@@ -85,6 +89,8 @@ namespace ProjectMobileAPI.Models
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
+                entity.Property(e => e.Createtime).HasMaxLength(50);
+
                 entity.Property(e => e.Description)
                     .HasColumnName("description")
                     .HasMaxLength(400);
@@ -100,6 +106,8 @@ namespace ProjectMobileAPI.Models
                 entity.Property(e => e.FileDocOfRole)
                     .HasColumnName("fileDocOfRole")
                     .HasMaxLength(100);
+
+                entity.Property(e => e.Lastmodified).HasMaxLength(50);
 
                 entity.Property(e => e.Name)
                     .HasColumnName("name")
@@ -171,11 +179,17 @@ namespace ProjectMobileAPI.Models
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
+                entity.Property(e => e.Createtime).HasColumnType("datetime");
+
                 entity.Property(e => e.Description).HasMaxLength(500);
 
                 entity.Property(e => e.Img).HasMaxLength(50);
 
+                entity.Property(e => e.LastModified).HasColumnType("datetime");
+
                 entity.Property(e => e.Name).HasMaxLength(50);
+
+                entity.Property(e => e.Username).HasMaxLength(50);
             });
         }
     }

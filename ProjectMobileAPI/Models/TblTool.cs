@@ -16,6 +16,9 @@ namespace ProjectMobileAPI.Models
         public string Img { get; set; }
         public int? Amount { get; set; }
         public bool? Status { get; set; }
+        public string Username { get; set; }
+        public DateTime? Createtime { get; set; }
+        public DateTime? LastModified { get; set; }
 
         public virtual ICollection<TblSceneTool> TblSceneTool { get; set; }
     }

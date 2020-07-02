@@ -16,5 +16,23 @@ namespace ProjectMobileAPI.Repositories
         {
             _context = context;
         }
+
+        public bool AddNewTool(String username, TblTool tool)
+        {
+
+            var t = _context.TblTool.Add(new TblTool()
+            {
+                Name = tool.Name,
+                Amount = tool.Amount,
+                Description = tool.Description,
+                Img = tool.Img,
+                Status = true,
+                Username = username,
+                Createtime = DateTime.Now,
+                LastModified = DateTime.Now
+            });
+            _context.SaveChanges();
+            return true;
+        }
     }
 }

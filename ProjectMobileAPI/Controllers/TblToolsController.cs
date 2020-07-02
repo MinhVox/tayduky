@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectMobileAPI.Models;
+using ProjectMobileAPI.Repositories;
 
 namespace ProjectMobileAPI.Controllers
 {
@@ -14,10 +15,12 @@ namespace ProjectMobileAPI.Controllers
     public class TblToolsController : ControllerBase
     {
         private readonly ProjectMobileContext _context;
+        private readonly ToolRepository _toolRepo;
 
         public TblToolsController(ProjectMobileContext context)
         {
             _context = context;
+            _toolRepo = new ToolRepository(_context);
         }
 
         // GET: api/TblTools
@@ -45,14 +48,24 @@ namespace ProjectMobileAPI.Controllers
 
         // PUT: api/TblTools/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTblTool(int id, TblTool tblTool)
+        public async Task<IActionResult> PutTblTool(int id,TblTool tblTool)
         {
             if (id != tblTool.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(tblTool).State = EntityState.Modified;
+            var t = _context.TblTool.Where(tool => tool.Id == id).FirstOrDefault();
+            if(t != null)
+            {
+                t.Name = tblTool.Name;
+                t.Amount = tblTool.Amount;
+                t.Description = tblTool.Description;
+                t.Img = tblTool.Img;
+                t.Status = true;
+                t.Username = tblTool.Username;
+                t.LastModified = DateTime.Now;
+            }
 
             try
             {
@@ -75,12 +88,14 @@ namespace ProjectMobileAPI.Controllers
 
         // POST: api/TblTools
         [HttpPost]
-        public async Task<ActionResult<TblTool>> PostTblTool(TblTool tblTool)
+        public IActionResult AddNewTool(string username,TblTool tblTool)
         {
-            _context.TblTool.Add(tblTool);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTblTool", new { id = tblTool.Id }, tblTool);
+            var result = _toolRepo.AddNewTool(username, tblTool);
+            if(result == true)
+            {
+                return Ok(result);
+            }
+            return BadRequest();
         }
 
         // DELETE: api/TblTools/5

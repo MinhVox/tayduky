@@ -58,7 +58,9 @@ namespace ProjectMobileAPI.Repositories
                 Email = account.Email,
                 Phone = account.Phone,
                 Description = account.Description,
-                Img = account.Img
+                Img = account.Img,
+                Createtime = DateTime.Now,
+                Lastmodified = DateTime.Now
             });
             _context.SaveChanges();
             return true;
