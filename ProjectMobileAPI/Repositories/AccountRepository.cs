@@ -47,7 +47,7 @@ namespace ProjectMobileAPI.Repositories
             {
                 Username = account.Username,
                 Password = "1",
-                Role = 1,
+                Role = 0,
                 Status = true,
             });
 

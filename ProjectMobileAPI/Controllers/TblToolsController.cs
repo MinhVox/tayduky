@@ -70,7 +70,7 @@ namespace ProjectMobileAPI.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(true);
         }
 
         // POST: api/TblTools
