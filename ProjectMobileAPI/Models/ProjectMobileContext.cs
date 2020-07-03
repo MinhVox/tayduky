@@ -89,7 +89,7 @@ namespace ProjectMobileAPI.Models
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Createtime).HasMaxLength(50);
+                entity.Property(e => e.Createtime).HasColumnType("datetime");
 
                 entity.Property(e => e.Description)
                     .HasColumnName("description")
@@ -107,7 +107,7 @@ namespace ProjectMobileAPI.Models
                     .HasColumnName("fileDocOfRole")
                     .HasMaxLength(100);
 
-                entity.Property(e => e.Lastmodified).HasMaxLength(50);
+                entity.Property(e => e.Lastmodified).HasColumnType("datetime");
 
                 entity.Property(e => e.Name)
                     .HasColumnName("name")

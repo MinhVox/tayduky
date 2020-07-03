@@ -19,8 +19,8 @@ namespace ProjectMobileAPI.Models
         public int? NumberOfShotScenes { get; set; }
         public string Director { get; set; }
         public string FileDocOfRole { get; set; }
-        public string Createtime { get; set; }
-        public string Lastmodified { get; set; }
+        public DateTime? Createtime { get; set; }
+        public DateTime? Lastmodified { get; set; }
 
         public virtual TblAccount DirectorNavigation { get; set; }
         public virtual ICollection<TblSceneActor> TblSceneActor { get; set; }
