@@ -101,7 +101,7 @@ namespace ProjectMobileAPI.Models
 
                 entity.Property(e => e.EndDay)
                     .HasColumnName("endDay")
-                    .HasColumnType("datetime");
+                    .HasColumnType("date");
 
                 entity.Property(e => e.FileDocOfRole)
                     .HasColumnName("fileDocOfRole")
@@ -117,7 +117,7 @@ namespace ProjectMobileAPI.Models
 
                 entity.Property(e => e.StartDay)
                     .HasColumnName("startDay")
-                    .HasColumnType("datetime");
+                    .HasColumnType("date");
 
                 entity.HasOne(d => d.DirectorNavigation)
                     .WithMany(p => p.TblScene)
