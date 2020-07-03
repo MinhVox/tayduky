@@ -25,17 +25,18 @@ namespace ProjectMobileAPI.Controllers
 
 
         // GET: api/TblScenes
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<TblScene>>> GetTblScene()
+        [HttpGet("{username}")]
+        public IActionResult GetTblScene(String username)
         {
-            return await _context.TblScene
-                .Include(tool => tool.TblSceneTool)
-                .Include(actor => actor.TblSceneActor)
-                .ToListAsync();
+            var result = _context.TblScene
+                .Where(i => i.Director == username)
+                .ToList();
+
+            return Ok(result);
         }
 
         // GET: api/TblScenes/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}/detail")]
         public async Task<ActionResult<TblScene>> GetTblScene(int id)
         {
             var tblScene = await _context.TblScene
