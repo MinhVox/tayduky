@@ -17,7 +17,7 @@ namespace ProjectMobileAPI.Repositories
             _context = context;
         }
 
-        public bool AddNewTool(String username, TblTool tool)
+        public bool AddNewTool(TblTool tool)
         {
 
             var t = _context.TblTool.Add(new TblTool()
@@ -27,7 +27,7 @@ namespace ProjectMobileAPI.Repositories
                 Description = tool.Description,
                 Img = tool.Img,
                 Status = true,
-                Username = username,
+                Username = tool.Username,
                 Createtime = DateTime.Now,
                 LastModified = DateTime.Now
             });

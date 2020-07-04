@@ -88,9 +88,9 @@ namespace ProjectMobileAPI.Controllers
 
         // POST: api/TblTools
         [HttpPost]
-        public IActionResult AddNewTool(string username,TblTool tblTool)
+        public IActionResult AddNewTool(TblTool tblTool)
         {
-            var result = _toolRepo.AddNewTool(username, tblTool);
+            var result = _toolRepo.AddNewTool(tblTool);
             if(result == true)
             {
                 return Ok(result);

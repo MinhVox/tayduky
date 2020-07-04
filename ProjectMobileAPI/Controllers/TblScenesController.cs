@@ -84,12 +84,14 @@ namespace ProjectMobileAPI.Controllers
 
         // POST: api/TblScenes
         [HttpPost]
-        public async Task<ActionResult<TblScene>> PostTblScene(TblScene tblScene)
+        public  IActionResult PostTblScene(TblScene tblScene)
         {
-            _context.TblScene.Add(tblScene);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTblScene", new { id = tblScene.Id }, tblScene);
+            var result = _sceneRepo.AddNewScene(tblScene);
+            if (result == true)
+            {
+                return Ok(result);
+            }
+            return BadRequest();
         }
 
         // DELETE: api/TblScenes/5

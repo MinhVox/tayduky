@@ -16,5 +16,24 @@ namespace ProjectMobileAPI.Repositories
         {
             this._context = context;
         }
+
+        public bool AddNewScene(TblScene scene)
+        {
+
+            var t = _context.TblScene.Add(new TblScene()
+            {
+                Name = scene.Name,
+                NumberOfShotScenes = scene.NumberOfShotScenes,
+                Description = scene.Description,
+                StartDay = scene.StartDay,
+                EndDay = scene.EndDay,
+                Director = scene.Director,
+                FileDocOfRole = scene.FileDocOfRole,
+                Createtime = DateTime.Now,
+                Lastmodified = DateTime.Now
+            });
+            _context.SaveChanges();
+            return true;
+        }
     }
 }
