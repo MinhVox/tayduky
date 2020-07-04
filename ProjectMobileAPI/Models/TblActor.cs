@@ -18,6 +18,7 @@ namespace ProjectMobileAPI.Models
         public string Email { get; set; }
         public DateTime? Createtime { get; set; }
         public DateTime? Lastmodified { get; set; }
+        public bool? Status { get; set; }
 
         public virtual TblAccount UsernameNavigation { get; set; }
         public virtual ICollection<TblSceneActor> TblSceneActor { get; set; }

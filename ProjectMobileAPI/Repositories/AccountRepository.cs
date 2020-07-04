@@ -37,6 +37,12 @@ namespace ProjectMobileAPI.Repositories
                 return false;
             }
             acc.Status = account.Status;
+            var actor = _context.TblActor.Where(record => record.Username == account.Username).FirstOrDefault();
+            if(actor == null)
+            {
+                return false;
+            }
+            actor.Status = account.Status;
             _context.SaveChanges();
             return true;
         }
@@ -60,7 +66,8 @@ namespace ProjectMobileAPI.Repositories
                 Description = account.Description,
                 Img = account.Img,
                 Createtime = DateTime.Now,
-                Lastmodified = DateTime.Now
+                Lastmodified = DateTime.Now,
+                Status = true
             });
             _context.SaveChanges();
             return true;
