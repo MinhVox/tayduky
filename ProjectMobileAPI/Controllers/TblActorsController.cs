@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectMobileAPI.Models;
+using ProjectMobileAPI.Repositories;
 
 namespace ProjectMobileAPI.Controllers
 {
@@ -14,10 +15,12 @@ namespace ProjectMobileAPI.Controllers
     public class TblActorsController : ControllerBase
     {
         private readonly ProjectMobileContext _context;
+        private readonly ActorRepository _repo;
 
         public TblActorsController(ProjectMobileContext context)
         {
             _context = context;
+            _repo = new ActorRepository(_context);
         }
 
         // GET: api/TblActors
@@ -43,6 +46,13 @@ namespace ProjectMobileAPI.Controllers
             }
 
             return tblActor;
+        }
+
+        [HttpGet("available/{id}")]
+        public IActionResult GetAvailableActor(int id)
+        {
+            var result = _repo.GetAvailableActor(id);
+            return Ok(result);
         }
 
         // PUT: api/TblActors/5

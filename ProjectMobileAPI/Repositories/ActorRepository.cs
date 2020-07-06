@@ -17,5 +17,33 @@ namespace ProjectMobileAPI.Repositories
         {
             this._context = context;
         }
+
+        public List<string> GetAvailableActorID(int id)
+        {
+            List<string> listActor = new List<string>();
+            var result = from actor in _context.TblAccount
+                         where actor.Role == 0 
+                         where !(from sa in _context.TblSceneActor
+                                 where sa.Idscene == id
+                                 select sa.Username)
+                                 .Contains(actor.Username)
+                        select actor.Username;
+            foreach (var actor in result) listActor.Add(actor);
+            return listActor;
+        }
+
+        public List<TblActor> GetAvailableActor(int id)
+        {
+            List<TblActor> list = new List<TblActor>();
+            var result = GetAvailableActorID(id);
+            foreach(var idAc in result)
+            {
+               var actor = _context.TblActor
+                    .Where(i => i.Username == idAc)
+                    .FirstOrDefault();
+                list.Add(actor);
+            }
+            return list;
+        }
     }
 }

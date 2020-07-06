@@ -46,6 +46,13 @@ namespace ProjectMobileAPI.Controllers
             return tblTool;
         }
 
+        [HttpGet("available/{id}")]
+        public IActionResult GetAvailableTool(int id)
+        {
+            var result = _toolRepo.GetAvailableTool(id);
+            return Ok(result);
+        }
+
         // PUT: api/TblTools/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTblTool(int id,TblTool tblTool)

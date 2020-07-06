@@ -34,5 +34,32 @@ namespace ProjectMobileAPI.Repositories
             _context.SaveChanges();
             return true;
         }
+
+        public List<int> GetAvailableToolID(int id)
+        {
+            List<int> listTool = new List<int>();
+            var result = from tool in _context.TblTool
+                         where !(from sa in _context.TblSceneTool
+                                 where sa.Idscene == id
+                                 select sa.Idtool)
+                                 .Contains(tool.Id)
+                         select tool.Id;
+            foreach (var tool in result) listTool.Add(tool);
+            return listTool;
+        }
+
+        public List<TblTool> GetAvailableTool(int id)
+        {
+            List<TblTool> list = new List<TblTool>();
+            var result = GetAvailableToolID(id);
+            foreach (var idTool in result)
+            {
+                var tool = _context.TblTool
+                     .Where(i => i.Id == idTool)
+                     .FirstOrDefault();
+                list.Add(tool);
+            }
+            return list;
+        }
     }
 }
