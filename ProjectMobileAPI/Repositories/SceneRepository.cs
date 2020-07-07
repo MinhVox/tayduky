@@ -35,5 +35,19 @@ namespace ProjectMobileAPI.Repositories
             _context.SaveChanges();
             return true;
         }
+
+        public bool AddActorToScene(int idS, List<string> username)
+        {
+            foreach(var user in username)
+            {
+                _context.TblSceneActor.Add(new TblSceneActor()
+                {
+                    Idscene = idS,
+                    Username = user
+                });
+                _context.SaveChanges();
+            }
+            return true;
+        }
     }
 }

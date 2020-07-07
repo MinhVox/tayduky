@@ -52,6 +52,13 @@ namespace ProjectMobileAPI.Controllers
             return tblScene;
         }
 
+        [HttpPost("actor/{id}")]
+        public IActionResult AddActorToScene(int id, List<string> username)
+        {
+            var result = _sceneRepo.AddActorToScene(id, username);
+            return Ok(result);
+        }
+
         // PUT: api/TblScenes/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTblScene(int id, TblScene tblScene)
