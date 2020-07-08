@@ -50,7 +50,11 @@ namespace ProjectMobileAPI.Controllers
         public IActionResult AddToolToScene(TblSceneTool st)
         {
             var result = _toolRepo.AddToolToScene(st);
-            return Ok(result);
+            if (result)
+            {
+                return Ok(result);
+            }
+            return BadRequest();
         }
 
         // PUT: api/TblTools/5
