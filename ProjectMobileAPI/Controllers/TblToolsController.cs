@@ -46,13 +46,6 @@ namespace ProjectMobileAPI.Controllers
             return tblTool;
         }
 
-        [HttpGet("available/{id}")]
-        public IActionResult GetAvailableTool(int id)
-        {
-            var result = _toolRepo.GetAvailableTool(id);
-            return Ok(result);
-        }
-
         [HttpPost("scene")]
         public IActionResult AddToolToScene(TblSceneTool st)
         {
