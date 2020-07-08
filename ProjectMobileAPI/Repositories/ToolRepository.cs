@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using ProjectMobileAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -60,6 +61,26 @@ namespace ProjectMobileAPI.Repositories
                 list.Add(tool);
             }
             return list;
+        }
+
+        public bool AddToolToScene(TblSceneTool st)
+        {
+            var tool = _context.TblTool.Where(a => a.Id == st.Idtool).FirstOrDefault();
+            if(tool.Amount < st.Amount)
+            {
+                return false;
+            }
+            else
+            {
+                _context.TblSceneTool.Add(new TblSceneTool()
+                {
+                    Idscene = st.Idscene,
+                    Idtool = st.Idtool,
+                    Amount = st.Amount
+                });
+                _context.SaveChanges();
+                return true;
+            }
         }
     }
 }

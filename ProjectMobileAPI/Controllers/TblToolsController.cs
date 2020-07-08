@@ -53,6 +53,13 @@ namespace ProjectMobileAPI.Controllers
             return Ok(result);
         }
 
+        [HttpPost("scene")]
+        public IActionResult AddToolToScene(TblSceneTool st)
+        {
+            var result = _toolRepo.AddToolToScene(st);
+            return Ok(result);
+        }
+
         // PUT: api/TblTools/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTblTool(int id,TblTool tblTool)
@@ -89,7 +96,6 @@ namespace ProjectMobileAPI.Controllers
                     throw;
                 }
             }
-
             return Ok(true);
         }
 
