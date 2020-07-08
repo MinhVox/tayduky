@@ -36,33 +36,6 @@ namespace ProjectMobileAPI.Repositories
             return true;
         }
 
-        public List<int> GetAvailableToolID(int id)
-        {
-            List<int> listTool = new List<int>();
-            var result = from tool in _context.TblTool
-                         where !(from sa in _context.TblSceneTool
-                                 where sa.Idscene == id
-                                 select sa.Idtool)
-                                 .Contains(tool.Id)
-                         select tool.Id;
-            foreach (var tool in result) listTool.Add(tool);
-            return listTool;
-        }
-
-        public List<TblTool> GetAvailableTool(int id)
-        {
-            List<TblTool> list = new List<TblTool>();
-            var result = GetAvailableToolID(id);
-            foreach (var idTool in result)
-            {
-                var tool = _context.TblTool
-                     .Where(i => i.Id == idTool)
-                     .FirstOrDefault();
-                list.Add(tool);
-            }
-            return list;
-        }
-
         public bool AddToolToScene(TblSceneTool st)
         {
             var tool = _context.TblTool.Where(a => a.Id == st.Idtool).FirstOrDefault();
@@ -72,12 +45,28 @@ namespace ProjectMobileAPI.Repositories
             }
             else
             {
-                _context.TblSceneTool.Add(new TblSceneTool()
+                var exist = _context.TblSceneTool
+                    .Where(a => a.Idscene == st.Idscene && a.Idtool == st.Idtool)
+                    .FirstOrDefault();
+                if (exist != null)
                 {
-                    Idscene = st.Idscene,
-                    Idtool = st.Idtool,
-                    Amount = st.Amount
-                });
+                    var toolInStore = _context.TblTool
+                        .Where(a => a.Id == st.Idtool).FirstOrDefault();
+                    if (toolInStore != null)
+                    {
+                       toolInStore.Amount = toolInStore.Amount - st.Amount;
+                       exist.Amount = exist.Amount + st.Amount;
+                    }
+                }
+                else
+                {
+                    _context.TblSceneTool.Add(new TblSceneTool()
+                    {
+                        Idscene = st.Idscene,
+                        Idtool = st.Idtool,
+                        Amount = st.Amount
+                    });
+                }
                 _context.SaveChanges();
                 return true;
             }
