@@ -100,6 +100,39 @@ namespace ProjectMobileAPI.Controllers
             return Ok();
         }
 
+        [HttpPut("status/{id}")]
+        public async Task<IActionResult> ChangeStatus(int id, TblScene tblScene)
+        {
+            if (id != tblScene.Id)
+            {
+                return BadRequest();
+            }
+
+            var t = _context.TblScene.Where(scene => scene.Id == id).FirstOrDefault();
+            if (t != null)
+            {
+                t.Status = tblScene.Status;
+            }
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TblSceneExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok();
+        }
+
         // POST: api/TblScenes
         [HttpPost]
         public  IActionResult PostTblScene(TblScene tblScene)
