@@ -68,7 +68,18 @@ namespace ProjectMobileAPI.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(tblScene).State = EntityState.Modified;
+            var t = _context.TblScene.Where(scene => scene.Id == id).FirstOrDefault();
+            if (t != null)
+            {
+                t.Name = tblScene.Name;
+                t.NumberOfShotScenes = tblScene.NumberOfShotScenes;
+                t.StartDay = tblScene.StartDay;
+                t.EndDay = tblScene.EndDay;
+                t.Director = tblScene.Director;
+                t.FileDocOfRole = tblScene.FileDocOfRole;
+                t.Description = tblScene.Description;
+                t.Lastmodified = DateTime.Now;
+            }
 
             try
             {
@@ -86,7 +97,7 @@ namespace ProjectMobileAPI.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok();
         }
 
         // POST: api/TblScenes

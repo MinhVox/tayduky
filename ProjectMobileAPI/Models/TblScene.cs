@@ -21,6 +21,7 @@ namespace ProjectMobileAPI.Models
         public string FileDocOfRole { get; set; }
         public DateTime? Createtime { get; set; }
         public DateTime? Lastmodified { get; set; }
+        public bool? Status { get; set; }
 
         public virtual TblAccount DirectorNavigation { get; set; }
         public virtual ICollection<TblSceneActor> TblSceneActor { get; set; }

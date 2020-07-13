@@ -119,6 +119,8 @@ namespace ProjectMobileAPI.Models
                     .HasColumnName("startDay")
                     .HasColumnType("date");
 
+                entity.Property(e => e.Status).HasColumnName("status");
+
                 entity.HasOne(d => d.DirectorNavigation)
                     .WithMany(p => p.TblScene)
                     .HasForeignKey(d => d.Director)
