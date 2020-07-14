@@ -105,7 +105,7 @@ namespace ProjectMobileAPI.Controllers
         }
 
         // PUT: api/Accounts/5
-        [HttpPut("{id}/{oldPassword}")]
+        [HttpPut("change-password/{id}/{oldPassword}")]
         public async Task<IActionResult> PutAccount(string id, string oldPassword, TblAccount account)
         {
             if (id != account.Username)
@@ -125,7 +125,6 @@ namespace ProjectMobileAPI.Controllers
                     return BadRequest("Wrong old password");
                 }
             }
-
             try
             {
                 await _context.SaveChangesAsync();
