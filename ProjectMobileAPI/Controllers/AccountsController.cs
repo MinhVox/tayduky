@@ -105,15 +105,26 @@ namespace ProjectMobileAPI.Controllers
         }
 
         // PUT: api/Accounts/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAccount(string id, TblAccount account)
+        [HttpPut("{id}/{oldPassword}")]
+        public async Task<IActionResult> PutAccount(string id, string oldPassword, TblAccount account)
         {
             if (id != account.Username)
             {
                 return BadRequest();
             }
 
-            _context.Entry(account).State = EntityState.Modified;
+            var acc = _context.TblAccount.Where(ac => ac.Username == id).FirstOrDefault();
+            if (acc != null)
+            {
+               if(oldPassword == acc.Password)
+                {
+                    acc.Password = account.Password;
+                }
+                else
+                {
+                    return BadRequest("Wrong old password");
+                }
+            }
 
             try
             {
@@ -131,7 +142,7 @@ namespace ProjectMobileAPI.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok();
         }
 
         // DELETE: api/Accounts/5

@@ -64,7 +64,16 @@ namespace ProjectMobileAPI.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(tblActor).State = EntityState.Modified;
+            var t = _context.TblActor.Where(actor => actor.Username == id).FirstOrDefault();
+            if (t != null)
+            {
+                t.Name = tblActor.Name;
+                t.Phone = tblActor.Phone;
+                t.Img = tblActor.Img;
+                t.Email = tblActor.Email;
+                t.Description = tblActor.Description;
+                t.Lastmodified = DateTime.Now;
+            }
 
             try
             {
@@ -82,7 +91,7 @@ namespace ProjectMobileAPI.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok();
         }
 
         // POST: api/TblActors
