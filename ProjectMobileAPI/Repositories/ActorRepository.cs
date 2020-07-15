@@ -45,5 +45,46 @@ namespace ProjectMobileAPI.Repositories
             }
             return list;
         }
+
+        public List<int> GetIdSceneJoined(string username)
+        {
+            List<int> listIdScene = new List<int>();
+            var result = from scene in _context.TblSceneActor
+                         where scene.Username == username
+                         select scene.Idscene;
+            foreach (var id in result) listIdScene.Add(id);
+            return listIdScene;
+        }
+
+        // 0 : chưa quay;
+        // 1 : đã quay;
+        public List<TblScene> GetSceneByTime(string username,int status)
+        {
+            List<TblScene> listScene = new List<TblScene>();
+            var listId = GetIdSceneJoined(username);
+            foreach (var id in listId)
+            {
+                var scene = _context.TblScene
+                     .Where(i => i.Id == id)
+                     .FirstOrDefault();
+                if(status == 0)
+                {
+                    var checkDate = DateTime.Compare(DateTime.Now, (DateTime)scene.EndDay);
+                    if(checkDate > 0)
+                    {
+                        listScene.Add(scene);
+                    }
+                }
+                else
+                {
+                    var checkDate = DateTime.Compare(DateTime.Now, (DateTime)scene.StartDay);
+                    if (checkDate < 0)
+                    {
+                        listScene.Add(scene);
+                    }
+                }
+            }
+            return listScene;
+        }
     }
 }

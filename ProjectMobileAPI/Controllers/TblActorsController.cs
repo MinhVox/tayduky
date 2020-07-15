@@ -55,6 +55,13 @@ namespace ProjectMobileAPI.Controllers
             return Ok(result);
         }
 
+        [HttpGet("scene/{username}/{status}")]
+        public IActionResult GetSceneJoined(string username, int status)
+        {
+            var result = _repo.GetSceneByTime(username,status);
+            return Ok(result);
+        }
+
         // PUT: api/TblActors/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTblActor(string id, TblActor tblActor)
